@@ -1,0 +1,19 @@
+{
+  "name": "difference-generator",
+  "version": "0.0.1",
+  "description": "Difference generator for configuration files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/subakaev/project-lvl2-s333.git"
+  },
+  "author": "Sergey Bakaev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/subakaev/project-lvl2-s333/issues"
+  },
+  "homepage": "https://github.com/subakaev/project-lvl2-s333#readme"
+}
