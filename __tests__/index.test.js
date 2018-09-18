@@ -10,9 +10,15 @@ const expectedResult = `{
 }`;
 
 test('test gendiff json', () => {
-  expect(gendiff('__tests__/__fixtures__/before.json', '__tests__/__fixtures__/after.json')).toBe(expectedResult);
+  const beforeCfg = '__tests__/__fixtures__/before.json';
+  const afterCfg = '__tests__/__fixtures__/after.json';
+
+  expect(gendiff(beforeCfg, afterCfg)).toBe(expectedResult);
 });
 
 test('test gendiff yml', () => {
-  expect(gendiff('__tests__/__fixtures__/before.yml', '__tests__/__fixtures__/after.yml')).toBe(expectedResult);
+  const beforeCfg = '__tests__/__fixtures__/before.yml';
+  const afterCfg = '__tests__/__fixtures__/after.yml';
+
+  expect(gendiff(beforeCfg, afterCfg)).toBe(expectedResult);
 });
