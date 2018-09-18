@@ -12,3 +12,6 @@
 
 # Example - Generate diff for YAML
 [![asciicast](https://asciinema.org/a/3BcjlmDwFXS9gyfqRMhaxoeIQ.png)](https://asciinema.org/a/3BcjlmDwFXS9gyfqRMhaxoeIQ)
+
+# Example - Generate diff for INI
+[![asciicast](https://asciinema.org/a/pwTL0KZtGGT7AGAAu4vzu849q.png)](https://asciinema.org/a/pwTL0KZtGGT7AGAAu4vzu849q)
