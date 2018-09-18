@@ -22,3 +22,10 @@ test('test gendiff yml', () => {
 
   expect(gendiff(beforeCfg, afterCfg)).toBe(expectedResult);
 });
+
+test('test gendiff ini', () => {
+  const beforeCfg = '__tests__/__fixtures__/before.ini';
+  const afterCfg = '__tests__/__fixtures__/after.ini';
+
+  expect(gendiff(beforeCfg, afterCfg)).toBe(expectedResult);
+});
