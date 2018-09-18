@@ -1,7 +1,8 @@
 import fs from 'fs';
 import _ from 'lodash';
-import yaml from 'js-yaml';
 import path from 'path';
+
+import parseContent from './parsers';
 
 const getConfigKeys = (config1, config2) => _.union(_.keys(config1), _.keys(config2));
 
@@ -28,13 +29,6 @@ const getDiffsFor = (key, obj1, obj2) => {
 
   return [genDiffValue(key, value2, '+'), genDiffValue(key, value1, '-')];
 };
-
-const parsers = {
-  json: JSON.parse,
-  yml: yaml.safeLoad,
-};
-
-const parseContent = (extName, content) => parsers[extName](content);
 
 export default (configFile1, configFile2) => {
   const content1 = fs.readFileSync(configFile1, 'utf8');
