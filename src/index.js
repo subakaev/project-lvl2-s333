@@ -29,22 +29,21 @@ const getDiffsFor = (key, obj1, obj2) => {
   return [genDiffValue(key, value2, '+'), genDiffValue(key, value1, '-')];
 };
 
-const getConfigObjects = (configFile1, configFile2) => {
+const parsers = {
+  json: content => JSON.parse(content),
+  yml: content => yaml.safeLoad(content),
+};
+
+const parseContent = (extName, content) => parsers[extName](content);
+
+export default (configFile1, configFile2) => {
   const content1 = fs.readFileSync(configFile1, 'utf8');
   const content2 = fs.readFileSync(configFile2, 'utf8');
 
-  const extName = path.extname(configFile1);
+  const extName = path.extname(configFile1).substring(1);
 
-  switch (extName) {
-    case '.yml':
-      return [yaml.safeLoad(content1), yaml.safeLoad(content2)];
-    default:
-      return [JSON.parse(content1), JSON.parse(content2)];
-  }
-};
-
-export default (configFile1, configFile2) => {
-  const [config1, config2] = getConfigObjects(configFile1, configFile2);
+  const config1 = parseContent(extName, content1);
+  const config2 = parseContent(extName, content2);
 
   const keys = getConfigKeys(config1, config2);
 
