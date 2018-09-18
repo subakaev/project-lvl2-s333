@@ -1,9 +1,9 @@
 import fs from 'fs';
-import { has } from 'lodash';
+import _ from 'lodash';
 import yaml from 'js-yaml';
 import path from 'path';
 
-const getConfigKeys = (config1, config2) => Object.keys({ ...config1, ...config2 });
+const getConfigKeys = (config1, config2) => _.union(_.keys(config1), _.keys(config2));
 
 const genDiffValue = (key, value, act = '') => {
   const prefix = act === '' ? '' : `${act} `;
@@ -14,11 +14,11 @@ const getDiffsFor = (key, obj1, obj2) => {
   const value1 = obj1[key];
   const value2 = obj2[key];
 
-  if (!has(obj2, key)) {
+  if (!_.has(obj2, key)) {
     return [genDiffValue(key, value1, '-')];
   }
 
-  if (!has(obj1, key)) {
+  if (!_.has(obj1, key)) {
     return [genDiffValue(key, value2, '+')];
   }
 
