@@ -30,8 +30,8 @@ const getDiffsFor = (key, obj1, obj2) => {
 };
 
 const parsers = {
-  json: content => JSON.parse(content),
-  yml: content => yaml.safeLoad(content),
+  json: JSON.parse,
+  yml: yaml.safeLoad,
 };
 
 const parseContent = (extName, content) => parsers[extName](content);
