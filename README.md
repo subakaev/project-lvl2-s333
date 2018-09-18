@@ -7,5 +7,8 @@
 # Installation
 [![asciicast](https://asciinema.org/a/6ucLb8g7x6UTQqdWAZntg7IpS.png)](https://asciinema.org/a/6ucLb8g7x6UTQqdWAZntg7IpS)
 
-# Example
+# Example - Generate diff for JSON
 [![asciicast](https://asciinema.org/a/zUxXjveGU3rLg9Y2av43PGdCV.png)](https://asciinema.org/a/zUxXjveGU3rLg9Y2av43PGdCV)
+
+# Example - Generate diff for YAML
+[![asciicast](https://asciinema.org/a/3BcjlmDwFXS9gyfqRMhaxoeIQ.png)](https://asciinema.org/a/3BcjlmDwFXS9gyfqRMhaxoeIQ)
