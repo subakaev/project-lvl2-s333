@@ -1,15 +1,30 @@
 import fs from 'fs';
 import { has } from 'lodash';
 
-const getUniqueArrayConfigKeys = (config1, config2) => {
-  const uniqueKeysSet = new Set([...Object.keys(config1), ...Object.keys(config2)]);
+const getConfigKeys = (config1, config2) => Object.keys({ ...config1, ...config2 });
 
-  return [...uniqueKeysSet];
+const genDiffValue = (key, value, act = '') => {
+  const prefix = act === '' ? '' : `${act} `;
+  return `  ${prefix}${key}: ${value}`;
 };
 
-const generateDiffMessage = (key, value, act = '') => {
-  const prefix = act === '' ? '' : `${act} `;
-  return `${prefix}${key}: ${value}`;
+const getDiffsFor = (key, obj1, obj2) => {
+  const value1 = obj1[key];
+  const value2 = obj2[key];
+
+  if (!has(obj2, key)) {
+    return [genDiffValue(key, value1, '-')];
+  }
+
+  if (!has(obj1, key)) {
+    return [genDiffValue(key, value2, '+')];
+  }
+
+  if (value1 === value2) {
+    return [genDiffValue(key, value1)];
+  }
+
+  return [genDiffValue(key, value2, '+'), genDiffValue(key, value1, '-')];
 };
 
 export default (configFile1, configFile2) => {
@@ -19,31 +34,13 @@ export default (configFile1, configFile2) => {
   const config1 = JSON.parse(content1);
   const config2 = JSON.parse(content2);
 
-  const keys = getUniqueArrayConfigKeys(config1, config2);
+  const keys = getConfigKeys(config1, config2);
 
-  const res = keys.reduce((acc, key) => {
-    const getKeyDiff = () => {
-      const value1 = config1[key];
+  const diffValues = keys.reduce((acc, key) => {
+    const keyDiffs = getDiffsFor(key, config1, config2);
 
-      if (!has(config2, key)) {
-        return generateDiffMessage(key, value1, '-');
-      }
+    return [...acc, ...keyDiffs];
+  }, []);
 
-      const value2 = config2[key];
-
-      if (!has(config1, key)) {
-        return generateDiffMessage(key, value2, '+');
-      }
-
-      if (value1 === value2) {
-        return generateDiffMessage(key, value1);
-      }
-
-      return `${generateDiffMessage(key, value2, '+')}\n  ${generateDiffMessage(key, value1, '-')}`;
-    };
-
-    return `${acc}\n  ${getKeyDiff()}`;
-  }, '{');
-
-  return `${res}\n}`;
+  return `{\n${diffValues.join('\n')}\n}`;
 };
