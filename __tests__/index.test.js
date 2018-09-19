@@ -1,7 +1,7 @@
 import gendiff from '../src';
 
 const expectedResult = `{
-  host: hexlet.io
+    host: hexlet.io
   + timeout: 20
   - timeout: 50
   - proxy: 123.234.53.22
@@ -24,38 +24,38 @@ test('test gendiff flat ini', () => {
 });
 
 const expectedTreeResult = `{
-  common: {
-    + follow: false
-      setting1: Value 1
-    - setting2: 200
-    - setting3: true
-    + setting3: {
+    common: {
+        setting1: Value 1
+      - setting2: 200
+      + setting3: {
           key: value
-      }
-      setting6: {
-          key: value
-        + ops: vops
-      }
-    + setting4: blah blah
-    + setting5: {
+        }
+      - setting3: true
+        setting6: {
+            key: value
+          + ops: vops
+        }
+      + follow: false
+      + setting4: blah blah
+      + setting5: {
           key5: value5
-      }
-  }
-  group1: {
-    + baz: bars
-    - baz: bas
-      foo: bar
-    - nest: {
+        }
+    }
+    group1: {
+      + baz: bars
+      - baz: bas
+        foo: bar
+      + nest: str
+      - nest: {
           key: value
-      }
-    + nest: str
-  }
-- group2: {
+        }
+    }
+  - group2: {
       abc: 12345
-  }
-+ group3: {
+    }
+  + group3: {
       fee: 100500
-  }
+    }
 }`;
 
 const treePath = '__tests__/__fixtures__/tree/';
