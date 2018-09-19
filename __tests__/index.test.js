@@ -9,23 +9,16 @@ const expectedResult = `{
   + verbose: true
 }`;
 
-test('test gendiff json', () => {
-  const beforeCfg = '__tests__/__fixtures__/before.json';
-  const afterCfg = '__tests__/__fixtures__/after.json';
+const flatPath = '__tests__/__fixtures__/flat/';
 
-  expect(gendiff(beforeCfg, afterCfg)).toBe(expectedResult);
+test('test gendiff flat json', () => {
+  expect(gendiff(`${flatPath}/before.json`, `${flatPath}/after.json`)).toBe(expectedResult);
 });
 
-test('test gendiff yml', () => {
-  const beforeCfg = '__tests__/__fixtures__/before.yml';
-  const afterCfg = '__tests__/__fixtures__/after.yml';
-
-  expect(gendiff(beforeCfg, afterCfg)).toBe(expectedResult);
+test('test gendiff flat yml', () => {
+  expect(gendiff(`${flatPath}/before.yml`, `${flatPath}/after.yml`)).toBe(expectedResult);
 });
 
-test('test gendiff ini', () => {
-  const beforeCfg = '__tests__/__fixtures__/before.ini';
-  const afterCfg = '__tests__/__fixtures__/after.ini';
-
-  expect(gendiff(beforeCfg, afterCfg)).toBe(expectedResult);
+test('test gendiff flat ini', () => {
+  expect(gendiff(`${flatPath}/before.ini`, `${flatPath}/after.ini`)).toBe(expectedResult);
 });
