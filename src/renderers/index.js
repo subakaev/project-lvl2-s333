@@ -14,6 +14,8 @@ const renderValue = (value, tabs = 1) => {
   return `{\n${_.flatten(keys).join('\n')}\n${tab.repeat(tabs)}}`;
 };
 
+const keyValueToString = (key, value, tabs) => `${key}: ${renderValue(value, tabs)}`;
+
 const renderer = (ast, tabs = 1) => {
   const arr = _.keys(ast).map((key) => {
     const node = ast[key];
@@ -23,19 +25,18 @@ const renderer = (ast, tabs = 1) => {
     switch (node.type) {
       case 'unchanged':
         if (!node.children) {
-          return `${newIndent}  ${key}: ${renderValue(node.value, tabs + 2)}`;
+          return `${newIndent}  ${keyValueToString(key, node.value1, tabs + 2)}`;
         }
 
         return `${newIndent}  ${key}: ${renderer(node.children, tabs + 2)}`;
-
       case 'added':
-        return `${newIndent}+ ${key}: ${renderValue(node.value, tabs + 1)}`;
+        return `${newIndent}+ ${keyValueToString(key, node.value2, tabs + 1)}`;
       case 'deleted':
-        return `${newIndent}- ${key}: ${renderValue(node.value, tabs + 1)}`;
+        return `${newIndent}- ${keyValueToString(key, node.value1, tabs + 1)}`;
       case 'both':
         return [
-          `${newIndent}+ ${key}: ${renderValue(node.value2, tabs + 1)}`,
-          `${newIndent}- ${key}: ${renderValue(node.value, tabs + 1)}`,
+          `${newIndent}+ ${keyValueToString(key, node.value2, tabs + 1)}`,
+          `${newIndent}- ${keyValueToString(key, node.value1, tabs + 1)}`,
         ];
       default:
         throw new Error();

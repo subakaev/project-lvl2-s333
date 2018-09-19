@@ -12,11 +12,11 @@ const generateAst = (obj1, obj2) => getConfigKeys(obj1, obj2).reduce((acc, key) 
   const value2 = obj2[key];
 
   if (!_.has(obj2, key)) {
-    return { ...acc, [key]: { type: 'deleted', value: value1 } };
+    return { ...acc, [key]: { type: 'deleted', value1 } };
   }
 
   if (!_.has(obj1, key)) {
-    return { ...acc, [key]: { type: 'added', value: value2 } };
+    return { ...acc, [key]: { type: 'added', value2 } };
   }
 
   if (_.isObject(value1) && _.isObject(value2)) {
@@ -24,10 +24,10 @@ const generateAst = (obj1, obj2) => getConfigKeys(obj1, obj2).reduce((acc, key) 
   }
 
   if (value1 === value2) {
-    return { ...acc, [key]: { type: 'unchanged', value: value1 } };
+    return { ...acc, [key]: { type: 'unchanged', value1 } };
   }
 
-  return { ...acc, [key]: { type: 'both', value: value1, value2 } };
+  return { ...acc, [key]: { type: 'both', value1, value2 } };
 }, {});
 
 
