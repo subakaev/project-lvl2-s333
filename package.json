@@ -1,6 +1,6 @@
 {
   "name": "difference-generator",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Difference generator for configuration files",
   "bin": {
     "gendiff": "dist/bin/gendiff.js"
