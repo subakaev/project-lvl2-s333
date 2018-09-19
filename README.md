@@ -15,3 +15,6 @@
 
 # Example - Generate diff for INI
 [![asciicast](https://asciinema.org/a/pwTL0KZtGGT7AGAAu4vzu849q.png)](https://asciinema.org/a/pwTL0KZtGGT7AGAAu4vzu849q)
+
+# Example - Generate diff for tree structure of JSON, YML and INI format
+[![asciicast](https://asciinema.org/a/K8TubrQgaDC95spjZJqYyJ0eR.png)](https://asciinema.org/a/K8TubrQgaDC95spjZJqYyJ0eR)
