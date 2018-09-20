@@ -23,12 +23,10 @@ const renderAst = (ast, tabsCount = 1) => {
     const indent = tabChar.repeat(tabsCount);
 
     switch (node.type) {
-      case 'unchanged':
-        if (!node.children) {
-          return `${indent}  ${keyValueToString(key, node.value1, tabsCount + 2)}`;
-        }
-
+      case 'node':
         return `${indent}  ${key}: ${renderAst(node.children, tabsCount + 2)}`;
+      case 'unchanged':
+        return `${indent}  ${keyValueToString(key, node.value1, tabsCount + 2)}`;
       case 'added':
         return `${indent}+ ${keyValueToString(key, node.value2, tabsCount + 1)}`;
       case 'deleted':

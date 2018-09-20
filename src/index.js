@@ -20,7 +20,7 @@ const generateAst = (obj1, obj2) => getConfigKeys(obj1, obj2).reduce((acc, key) 
   }
 
   if (_.isObject(value1) && _.isObject(value2)) {
-    return { ...acc, [key]: { type: 'unchanged', children: generateAst(value1, value2) } };
+    return { ...acc, [key]: { type: 'node', children: generateAst(value1, value2) } };
   }
 
   if (value1 === value2) {
