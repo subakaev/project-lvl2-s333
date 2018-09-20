@@ -1,73 +1,39 @@
+import fs from 'fs';
+
 import gendiff from '../src';
 
-const expectedResult = `{
-    host: hexlet.io
-  + timeout: 20
-  - timeout: 50
-  - proxy: 123.234.53.22
-  - follow: false
-  + verbose: true
-}`;
+describe('test cfg files with flat structure', () => {
+  const flatPath = '__tests__/__fixtures__/flat';
 
-const flatPath = '__tests__/__fixtures__/flat/';
+  const expectedResult = fs.readFileSync(`${flatPath}/expected.txt`, 'utf8');
 
-test('test gendiff flat json', () => {
-  expect(gendiff(`${flatPath}/before.json`, `${flatPath}/after.json`)).toBe(expectedResult);
+  test('test gendiff flat json', () => {
+    expect(gendiff(`${flatPath}/before.json`, `${flatPath}/after.json`)).toEqual(expectedResult);
+  });
+
+  test('test gendiff flat yml', () => {
+    expect(gendiff(`${flatPath}/before.yml`, `${flatPath}/after.yml`)).toEqual(expectedResult);
+  });
+
+  test('test gendiff flat ini', () => {
+    expect(gendiff(`${flatPath}/before.ini`, `${flatPath}/after.ini`)).toEqual(expectedResult);
+  });
 });
 
-test('test gendiff flat yml', () => {
-  expect(gendiff(`${flatPath}/before.yml`, `${flatPath}/after.yml`)).toBe(expectedResult);
-});
+describe('test cfg files with tree structure', () => {
+  const treePath = '__tests__/__fixtures__/tree';
 
-test('test gendiff flat ini', () => {
-  expect(gendiff(`${flatPath}/before.ini`, `${flatPath}/after.ini`)).toBe(expectedResult);
-});
+  const expectedTreeResult = fs.readFileSync(`${treePath}/expected.txt`, 'utf8');
 
-const expectedTreeResult = `{
-    common: {
-        setting1: Value 1
-      - setting2: 200
-      + setting3: {
-          key: value
-        }
-      - setting3: true
-        setting6: {
-            key: value
-          + ops: vops
-        }
-      + follow: false
-      + setting4: blah blah
-      + setting5: {
-          key5: value5
-        }
-    }
-    group1: {
-      + baz: bars
-      - baz: bas
-        foo: bar
-      + nest: str
-      - nest: {
-          key: value
-        }
-    }
-  - group2: {
-      abc: 12345
-    }
-  + group3: {
-      fee: 100500
-    }
-}`;
+  test('test gendiff tree json', () => {
+    expect(gendiff(`${treePath}/before.json`, `${treePath}/after.json`)).toBe(expectedTreeResult);
+  });
 
-const treePath = '__tests__/__fixtures__/tree/';
+  test('test gendiff tree yml', () => {
+    expect(gendiff(`${treePath}/before.yml`, `${treePath}/after.yml`)).toBe(expectedTreeResult);
+  });
 
-test('test gendiff tree json', () => {
-  expect(gendiff(`${treePath}/before.json`, `${treePath}/after.json`)).toBe(expectedTreeResult);
-});
-
-test('test gendiff tree yml', () => {
-  expect(gendiff(`${treePath}/before.yml`, `${treePath}/after.yml`)).toBe(expectedTreeResult);
-});
-
-test('test gendiff tree ini', () => {
-  expect(gendiff(`${treePath}/before.ini`, `${treePath}/after.ini`)).toBe(expectedTreeResult);
+  test('test gendiff tree ini', () => {
+    expect(gendiff(`${treePath}/before.ini`, `${treePath}/after.ini`)).toBe(expectedTreeResult);
+  });
 });
