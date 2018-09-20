@@ -2,22 +2,27 @@ import _ from 'lodash';
 
 const tabChar = '  ';
 
-const renderValue = (value, tabsCount = 1) => {
+const getIndentForCloseBrace = depth => tabChar.repeat((depth - 1) * 2);
+const getIndentForUnchangedNode = depth => tabChar.repeat(depth * 2);
+const getIndent = depth => tabChar.repeat(depth * 2 - 1);
+
+const renderValue = (value, depth) => {
   if (!_.isObject(value)) {
     return `${value}`;
   }
 
-  const indent = tabChar.repeat(tabsCount + 1);
+  const indent = getIndentForUnchangedNode(depth);
 
-  const keys = _.keys(value).map(key => `${indent}${key}: ${renderValue(value[key], tabsCount + 2)}`);
+  const keys = _.keys(value).map(key => `${indent}${key}: ${renderValue(value[key], depth + 1)}`);
 
-  return `{\n${_.flatten(keys).join('\n')}\n${tabChar.repeat(tabsCount)}}`;
+  return `{\n${_.flatten(keys).join('\n')}\n${getIndentForCloseBrace(depth)}}`;
 };
 
-const keyValueToString = (key, value, tabsCount) => `${key}: ${renderValue(value, tabsCount)}`;
+const keyValueToString = (key, value, depth) => `${key}: ${renderValue(value, depth + 1)}`;
 
 const renderAst = (ast, depth = 1) => {
-  const indent = tabChar.repeat(depth);
+  const indent = getIndent(depth);
+  const indentForUnchanged = getIndentForUnchangedNode(depth);
 
   const arr = ast.map((node) => {
     const {
@@ -26,24 +31,24 @@ const renderAst = (ast, depth = 1) => {
 
     switch (type) {
       case 'node':
-        return `${indent}  ${name}: ${renderAst(children, depth + 2)}`;
+        return `${indentForUnchanged}${name}: ${renderAst(children, depth + 1)}`;
       case 'unchanged':
-        return `${indent}  ${keyValueToString(name, value1, depth + 2)}`;
+        return `${indentForUnchanged}${keyValueToString(name, value1, depth)}`;
       case 'added':
-        return `${indent}+ ${keyValueToString(name, value2, depth + 1)}`;
+        return `${indent}+ ${keyValueToString(name, value2, depth)}`;
       case 'deleted':
-        return `${indent}- ${keyValueToString(name, value1, depth + 1)}`;
+        return `${indent}- ${keyValueToString(name, value1, depth)}`;
       case 'diff':
         return [
-          `${indent}+ ${keyValueToString(name, value2, depth + 1)}`,
-          `${indent}- ${keyValueToString(name, value1, depth + 1)}`,
+          `${indent}+ ${keyValueToString(name, value2, depth)}`,
+          `${indent}- ${keyValueToString(name, value1, depth)}`,
         ];
       default:
         throw new Error();
     }
   });
 
-  return `{\n${_.flatten(arr).join('\n')}\n${tabChar.repeat(depth - 1)}}`;
+  return `{\n${_.flatten(arr).join('\n')}\n${getIndentForCloseBrace(depth)}}`;
 };
 
 export default renderAst;
