@@ -3,7 +3,7 @@ import _ from 'lodash';
 import path from 'path';
 
 import parseContent from './parsers';
-import renderAst from './renderers';
+import getRenderer from './renderers';
 
 const getConfigKeys = (config1, config2) => _.union(_.keys(config1), _.keys(config2));
 
@@ -32,7 +32,7 @@ const generateAst = (obj1, obj2) => getConfigKeys(obj1, obj2).map((key) => {
   };
 });
 
-export default (configFile1, configFile2) => {
+export default (configFile1, configFile2, renderFormat = 'tree') => {
   const content1 = fs.readFileSync(configFile1, 'utf8');
   const content2 = fs.readFileSync(configFile2, 'utf8');
 
@@ -43,5 +43,5 @@ export default (configFile1, configFile2) => {
 
   const ast = generateAst(config1, config2);
 
-  return renderAst(ast);
+  return getRenderer(renderFormat)(ast);
 };

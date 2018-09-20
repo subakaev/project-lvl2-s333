@@ -20,7 +20,7 @@ const renderValue = (value, depth) => {
 
 const keyValueToString = (key, value, depth) => `${key}: ${renderValue(value, depth + 1)}`;
 
-const renderAst = (ast, depth = 1) => {
+const renderAstAsTree = (ast, depth = 1) => {
   const indent = getIndent(depth);
   const indentForUnchanged = getIndentForUnchangedNode(depth);
 
@@ -31,7 +31,7 @@ const renderAst = (ast, depth = 1) => {
 
     switch (type) {
       case 'node':
-        return `${indentForUnchanged}${name}: ${renderAst(children, depth + 1)}`;
+        return `${indentForUnchanged}${name}: ${renderAstAsTree(children, depth + 1)}`;
       case 'unchanged':
         return `${indentForUnchanged}${keyValueToString(name, value1, depth)}`;
       case 'added':
@@ -51,4 +51,13 @@ const renderAst = (ast, depth = 1) => {
   return `{\n${_.flatten(arr).join('\n')}\n${getIndentForCloseBrace(depth)}}`;
 };
 
-export default renderAst;
+const renderAstAsPlain = (ast, depth = 1) => '';
+
+export default (renderFormat) => {
+  const renderers = {
+    tree: renderAstAsTree,
+    plain: renderAstAsPlain,
+  };
+
+  return renderers[renderFormat] || renderers.tree;
+};
