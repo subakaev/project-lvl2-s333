@@ -51,7 +51,32 @@ const renderAstAsTree = (ast, depth = 1) => {
   return `{\n${_.flatten(arr).join('\n')}\n${getIndentForCloseBrace(depth)}}`;
 };
 
-const renderAstAsPlain = (ast, depth = 1) => '';
+const renderAstAsPlain = (ast, prefix = '') => {
+  const rows = ast.map((node) => {
+    const {
+      name, type, value1, value2, children,
+    } = node;
+
+    const propertyName = prefix !== '' ? `${prefix}.${name}` : name;
+
+    switch (type) {
+      case 'node':
+        return renderAstAsPlain(children, `${propertyName}`);
+      case 'unchanged':
+        return null;
+      case 'added':
+        return `Property '${propertyName}' was added with value: ${value2}`;
+      case 'deleted':
+        return `Property '${propertyName}' was removed`;
+      case 'diff':
+        return `Property '${propertyName}' was updated. From ${value1} to ${value2}`;
+      default:
+        throw new Error();
+    }
+  });
+
+  return _.flatten(rows.filter(x => x)).join('\n');
+};
 
 export default (renderFormat) => {
   const renderers = {
