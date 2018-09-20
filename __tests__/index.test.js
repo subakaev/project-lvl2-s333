@@ -32,6 +32,14 @@ describe('test cfg files with flat structure', () => {
       expect(gendiff(`${flatPath}/before.json`, `${flatPath}/after.json`, 'plain')).toEqual(expectedResult);
     });
   });
+
+  describe('test json renderer', () => {
+    const expectedResult = getExpectedResult(`${flatPath}/expectedJSON.txt`);
+
+    test('test gendiff flat json', () => {
+      expect(gendiff(`${flatPath}/before.json`, `${flatPath}/after.json`, 'json')).toEqual(expectedResult);
+    });
+  });
 });
 
 describe('test cfg files with tree structure', () => {

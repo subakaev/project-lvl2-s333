@@ -1,0 +1,28 @@
+[
+  {
+    "name": "host",
+    "type": "unchanged",
+    "value1": "hexlet.io"
+  },
+  {
+    "name": "timeout",
+    "type": "diff",
+    "value1": 50,
+    "value2": 20
+  },
+  {
+    "name": "proxy",
+    "type": "deleted",
+    "value1": "123.234.53.22"
+  },
+  {
+    "name": "follow",
+    "type": "deleted",
+    "value1": false
+  },
+  {
+    "name": "verbose",
+    "type": "added",
+    "value2": true
+  }
+]
