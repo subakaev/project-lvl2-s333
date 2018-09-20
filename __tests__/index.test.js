@@ -4,10 +4,12 @@ import gendiff from '../src';
 
 const fixturesPath = '__tests__/__fixtures__';
 
+const getExpectedResult = path => fs.readFileSync(path, 'utf8');
+
 describe('test cfg files with flat structure', () => {
   const flatPath = `${fixturesPath}/flat`;
 
-  const expectedResult = fs.readFileSync(`${flatPath}/expected.txt`, 'utf8');
+  const expectedResult = getExpectedResult(`${flatPath}/expected.txt`);
 
   test('test gendiff flat json', () => {
     expect(gendiff(`${flatPath}/before.json`, `${flatPath}/after.json`)).toEqual(expectedResult);
@@ -25,7 +27,7 @@ describe('test cfg files with flat structure', () => {
 describe('test cfg files with tree structure', () => {
   const treePath = `${fixturesPath}/tree`;
 
-  const expectedTreeResult = fs.readFileSync(`${treePath}/expected.txt`, 'utf8');
+  const expectedTreeResult = getExpectedResult(`${treePath}/expected.txt`);
 
   test('test gendiff tree json', () => {
     expect(gendiff(`${treePath}/before.json`, `${treePath}/after.json`)).toBe(expectedTreeResult);
