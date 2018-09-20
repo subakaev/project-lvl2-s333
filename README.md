@@ -7,14 +7,17 @@
 # Installation
 [![asciicast](https://asciinema.org/a/6ucLb8g7x6UTQqdWAZntg7IpS.png)](https://asciinema.org/a/6ucLb8g7x6UTQqdWAZntg7IpS)
 
-# Example - Generate diff for JSON
+# Example - Generate tree diff for JSON
 [![asciicast](https://asciinema.org/a/zUxXjveGU3rLg9Y2av43PGdCV.png)](https://asciinema.org/a/zUxXjveGU3rLg9Y2av43PGdCV)
 
-# Example - Generate diff for YAML
+# Example - Generate tree diff for YAML
 [![asciicast](https://asciinema.org/a/3BcjlmDwFXS9gyfqRMhaxoeIQ.png)](https://asciinema.org/a/3BcjlmDwFXS9gyfqRMhaxoeIQ)
 
-# Example - Generate diff for INI
+# Example - Generate tree diff for INI
 [![asciicast](https://asciinema.org/a/pwTL0KZtGGT7AGAAu4vzu849q.png)](https://asciinema.org/a/pwTL0KZtGGT7AGAAu4vzu849q)
 
-# Example - Generate diff for tree structure of JSON, YML and INI format
+# Example - Generate tree diff for tree structure of JSON, YML and INI format
 [![asciicast](https://asciinema.org/a/K8TubrQgaDC95spjZJqYyJ0eR.png)](https://asciinema.org/a/K8TubrQgaDC95spjZJqYyJ0eR)
+
+# Example - Generate plain diff
+[![asciicast](https://asciinema.org/a/GVR1DQ12F7aT5M3vDbpOC9bKx.png)](https://asciinema.org/a/GVR1DQ12F7aT5M3vDbpOC9bKx)
