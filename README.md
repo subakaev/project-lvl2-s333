@@ -21,3 +21,6 @@
 
 # Example - Generate plain diff
 [![asciicast](https://asciinema.org/a/GVR1DQ12F7aT5M3vDbpOC9bKx.png)](https://asciinema.org/a/GVR1DQ12F7aT5M3vDbpOC9bKx)
+
+# Example - Generate json diff
+[![asciicast](https://asciinema.org/a/dJLBspY2UlCjjvhx55PqSrDPd.png)](https://asciinema.org/a/dJLBspY2UlCjjvhx55PqSrDPd)
