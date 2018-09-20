@@ -2,8 +2,10 @@ import fs from 'fs';
 
 import gendiff from '../src';
 
+const fixturesPath = '__tests__/__fixtures__';
+
 describe('test cfg files with flat structure', () => {
-  const flatPath = '__tests__/__fixtures__/flat';
+  const flatPath = `${fixturesPath}/flat`;
 
   const expectedResult = fs.readFileSync(`${flatPath}/expected.txt`, 'utf8');
 
@@ -21,7 +23,7 @@ describe('test cfg files with flat structure', () => {
 });
 
 describe('test cfg files with tree structure', () => {
-  const treePath = '__tests__/__fixtures__/tree';
+  const treePath = `${fixturesPath}/tree`;
 
   const expectedTreeResult = fs.readFileSync(`${treePath}/expected.txt`, 'utf8');
 
