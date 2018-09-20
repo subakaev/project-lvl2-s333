@@ -34,7 +34,7 @@ describe('test cfg files with flat structure', () => {
   });
 
   describe('test json renderer', () => {
-    const expectedResult = getExpectedResult(`${flatPath}/expectedJSON.txt`);
+    const expectedResult = getExpectedResult(`${flatPath}/expected.json`);
 
     test('test gendiff flat json', () => {
       expect(gendiff(`${flatPath}/before.json`, `${flatPath}/after.json`, 'json')).toEqual(expectedResult);
@@ -66,6 +66,14 @@ describe('test cfg files with tree structure', () => {
 
     test('test gendiff tree json', () => {
       expect(gendiff(`${treePath}/before.json`, `${treePath}/after.json`, 'plain')).toEqual(expectedResult);
+    });
+  });
+
+  describe('test json renderer', () => {
+    const expectedResult = getExpectedResult(`${treePath}/expected.json`);
+
+    test('test gendiff tree json', () => {
+      expect(gendiff(`${treePath}/before.json`, `${treePath}/after.json`, 'json')).toEqual(expectedResult);
     });
   });
 });
