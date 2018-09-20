@@ -9,22 +9,32 @@ const getExpectedResult = path => fs.readFileSync(path, 'utf8');
 describe('test cfg files with flat structure', () => {
   const flatPath = `${fixturesPath}/flat`;
 
-  const expectedResult = getExpectedResult(`${flatPath}/expected.txt`);
+  describe('test tree renderer', () => {
+    const expectedResult = getExpectedResult(`${flatPath}/expected.txt`);
 
-  test('test gendiff flat json', () => {
-    expect(gendiff(`${flatPath}/before.json`, `${flatPath}/after.json`)).toEqual(expectedResult);
+    test('test gendiff flat json', () => {
+      expect(gendiff(`${flatPath}/before.json`, `${flatPath}/after.json`)).toEqual(expectedResult);
+    });
+
+    test('test gendiff flat yml', () => {
+      expect(gendiff(`${flatPath}/before.yml`, `${flatPath}/after.yml`)).toEqual(expectedResult);
+    });
+
+    test('test gendiff flat ini', () => {
+      expect(gendiff(`${flatPath}/before.ini`, `${flatPath}/after.ini`)).toEqual(expectedResult);
+    });
   });
 
-  test('test gendiff flat yml', () => {
-    expect(gendiff(`${flatPath}/before.yml`, `${flatPath}/after.yml`)).toEqual(expectedResult);
-  });
+  describe('test plain renderer', () => {
+    const expectedResult = getExpectedResult(`${flatPath}/expectedPlain.txt`);
 
-  test('test gendiff flat ini', () => {
-    expect(gendiff(`${flatPath}/before.ini`, `${flatPath}/after.ini`)).toEqual(expectedResult);
+    test('test gendiff flat json', () => {
+      expect(gendiff(`${flatPath}/before.json`, `${flatPath}/after.json`, 'plain')).toEqual(expectedResult);
+    });
   });
 });
 
-describe('test cfg files with tree structure', () => {
+describe('test cfg files with tree structure and tree renderer', () => {
   const treePath = `${fixturesPath}/tree`;
 
   const expectedTreeResult = getExpectedResult(`${treePath}/expected.txt`);
