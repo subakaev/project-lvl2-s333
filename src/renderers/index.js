@@ -16,7 +16,7 @@ const renderValue = (value, tabsCount = 1) => {
 
 const keyValueToString = (key, value, tabsCount) => `${key}: ${renderValue(value, tabsCount)}`;
 
-const renderer = (ast, tabsCount = 1) => {
+const renderAst = (ast, tabsCount = 1) => {
   const arr = _.keys(ast).map((key) => {
     const node = ast[key];
 
@@ -28,7 +28,7 @@ const renderer = (ast, tabsCount = 1) => {
           return `${indent}  ${keyValueToString(key, node.value1, tabsCount + 2)}`;
         }
 
-        return `${indent}  ${key}: ${renderer(node.children, tabsCount + 2)}`;
+        return `${indent}  ${key}: ${renderAst(node.children, tabsCount + 2)}`;
       case 'added':
         return `${indent}+ ${keyValueToString(key, node.value2, tabsCount + 1)}`;
       case 'deleted':
@@ -46,4 +46,4 @@ const renderer = (ast, tabsCount = 1) => {
   return `{\n${_.flatten(arr).join('\n')}\n${tabChar.repeat(tabsCount - 1)}}`;
 };
 
-export default renderer;
+export default renderAst;

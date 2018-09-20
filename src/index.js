@@ -3,7 +3,7 @@ import _ from 'lodash';
 import path from 'path';
 
 import parseContent from './parsers';
-import renderer from './renderers';
+import renderAst from './renderers';
 
 const getConfigKeys = (config1, config2) => _.union(_.keys(config1), _.keys(config2));
 
@@ -42,5 +42,5 @@ export default (configFile1, configFile2) => {
 
   const ast = generateAst(config1, config2);
 
-  return renderer(ast);
+  return renderAst(ast);
 };
