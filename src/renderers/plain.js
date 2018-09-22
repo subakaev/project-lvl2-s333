@@ -1,16 +1,15 @@
 import _ from 'lodash';
 
-const renderPlainValue = (value) => {
-  if (_.isObject(value)) {
-    return '[complex value]';
-  }
-
-  if (_.isString(value)) {
-    return `'${value}'`;
-  }
-
-  return value;
+const valueRenderers = {
+  string: value => `'${value}'`,
+  object: () => '[complex value]',
+  number: value => value,
+  boolean: value => value,
+  null: value => value,
+  undefined: value => value,
 };
+
+const renderValue = value => valueRenderers[typeof value](value);
 
 const renderAstAsPlain = (ast, parentNodes = []) => {
   const rows = ast.map((node) => {
@@ -21,23 +20,17 @@ const renderAstAsPlain = (ast, parentNodes = []) => {
     const nextParentNodes = [...parentNodes, name];
     const propertyName = nextParentNodes.join('.');
 
-    const value1Str = renderPlainValue(value1);
-    const value2Str = renderPlainValue(value2);
+    const [value1Str, value2Str] = [renderValue(value1), renderValue(value2)];
 
-    switch (type) {
-      case 'nested':
-        return renderAstAsPlain(children, nextParentNodes);
-      case 'unchanged':
-        return null;
-      case 'added':
-        return `Property '${propertyName}' was added with value: ${value2Str}`;
-      case 'deleted':
-        return `Property '${propertyName}' was removed`;
-      case 'changed':
-        return `Property '${propertyName}' was updated. From ${value1Str} to ${value2Str}`;
-      default:
-        throw new Error();
-    }
+    const typeRenderers = {
+      nested: () => renderAstAsPlain(children, nextParentNodes),
+      unchanged: () => null,
+      added: () => `Property '${propertyName}' was added with value: ${value2Str}`,
+      deleted: () => `Property '${propertyName}' was removed`,
+      changed: () => `Property '${propertyName}' was updated. From ${value1Str} to ${value2Str}`,
+    };
+
+    return typeRenderers[type]();
   });
 
   return _.flatten(rows.filter(x => x)).join('\n');
