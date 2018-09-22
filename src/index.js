@@ -19,7 +19,7 @@ const astNodeMatchers = [
     getMatchedResult: (_value1, value2) => ({ value2 }),
   },
   {
-    type: 'node',
+    type: 'nested',
     isMatch: (key, obj1, obj2) => _.has(obj1, key) && _.has(obj2, key)
       && _.isObject(obj1[key]) && _.isObject(obj2[key]),
     getMatchedResult: (value1, value2, genAstFn) => ({ children: genAstFn(value1, value2) }),
@@ -30,7 +30,7 @@ const astNodeMatchers = [
     getMatchedResult: value1 => ({ value1 }),
   },
   {
-    type: 'diff',
+    type: 'changed',
     isMatch: (key, obj1, obj2) => _.has(obj1, key) && _.has(obj2, key) && obj1[key] !== obj2[key],
     getMatchedResult: (value1, value2) => ({ value1, value2 }),
   },

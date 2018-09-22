@@ -24,7 +24,7 @@ const renderAstAsPlain = (ast, prefix = '') => {
     const value2Str = renderPlainValue(value2);
 
     switch (type) {
-      case 'node':
+      case 'nested':
         return renderAstAsPlain(children, `${propertyName}`);
       case 'unchanged':
         return null;
@@ -32,7 +32,7 @@ const renderAstAsPlain = (ast, prefix = '') => {
         return `Property '${propertyName}' was added with value: ${value2Str}`;
       case 'deleted':
         return `Property '${propertyName}' was removed`;
-      case 'diff':
+      case 'changed':
         return `Property '${propertyName}' was updated. From ${value1Str} to ${value2Str}`;
       default:
         throw new Error();

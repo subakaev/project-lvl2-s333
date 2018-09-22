@@ -1,7 +1,7 @@
 [
   {
     "name": "common",
-    "type": "node",
+    "type": "nested",
     "children": [
       {
         "name": "setting1",
@@ -15,7 +15,7 @@
       },
       {
         "name": "setting3",
-        "type": "diff",
+        "type": "changed",
         "value1": true,
         "value2": {
           "key": "value"
@@ -23,7 +23,7 @@
       },
       {
         "name": "setting6",
-        "type": "node",
+        "type": "nested",
         "children": [
           {
             "name": "key",
@@ -58,11 +58,11 @@
   },
   {
     "name": "group1",
-    "type": "node",
+    "type": "nested",
     "children": [
       {
         "name": "baz",
-        "type": "diff",
+        "type": "changed",
         "value1": "bas",
         "value2": "bars"
       },
@@ -73,7 +73,7 @@
       },
       {
         "name": "nest",
-        "type": "diff",
+        "type": "changed",
         "value1": {
           "key": "value"
         },

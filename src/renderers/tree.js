@@ -30,7 +30,7 @@ const renderAstAsTree = (ast, depth = 1) => {
     } = node;
 
     switch (type) {
-      case 'node':
+      case 'nested':
         return `${indentForUnchanged}${name}: ${renderAstAsTree(children, depth + 1)}`;
       case 'unchanged':
         return `${indentForUnchanged}${keyValueToString(name, value1, depth)}`;
@@ -38,7 +38,7 @@ const renderAstAsTree = (ast, depth = 1) => {
         return `${indent}+ ${keyValueToString(name, value2, depth)}`;
       case 'deleted':
         return `${indent}- ${keyValueToString(name, value1, depth)}`;
-      case 'diff':
+      case 'changed':
         return [
           `${indent}+ ${keyValueToString(name, value2, depth)}`,
           `${indent}- ${keyValueToString(name, value1, depth)}`,
