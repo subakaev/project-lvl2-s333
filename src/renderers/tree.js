@@ -29,6 +29,19 @@ const renderAstAsTree = (ast, depth = 1) => {
       name, type, value1, value2, children,
     } = node;
 
+    const typeRenderers = {
+      nested: () => `${indentForUnchanged}${name}: ${renderAstAsTree(children, depth + 1)}`,
+      unchanged: () => `${indentForUnchanged}${keyValueToString(name, value1, depth)}`,
+      added: () => `${indent}+ ${keyValueToString(name, value2, depth)}`,
+      deleted: () => `${indent}- ${keyValueToString(name, value1, depth)}`,
+      changed: () => [
+        `${indent}+ ${keyValueToString(name, value2, depth)}`,
+        `${indent}- ${keyValueToString(name, value1, depth)}`,
+      ],
+    };
+
+    return typeRenderers[type]();
+
     switch (type) {
       case 'nested':
         return `${indentForUnchanged}${name}: ${renderAstAsTree(children, depth + 1)}`;
