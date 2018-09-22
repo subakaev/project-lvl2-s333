@@ -12,20 +12,21 @@ const renderPlainValue = (value) => {
   return value;
 };
 
-const renderAstAsPlain = (ast, prefix = '') => {
+const renderAstAsPlain = (ast, parentNodes = []) => {
   const rows = ast.map((node) => {
     const {
       name, type, value1, value2, children,
     } = node;
 
-    const propertyName = prefix !== '' ? `${prefix}.${name}` : name;
+    const nextParentNodes = [...parentNodes, name];
+    const propertyName = nextParentNodes.join('.');
 
     const value1Str = renderPlainValue(value1);
     const value2Str = renderPlainValue(value2);
 
     switch (type) {
       case 'nested':
-        return renderAstAsPlain(children, `${propertyName}`);
+        return renderAstAsPlain(children, nextParentNodes);
       case 'unchanged':
         return null;
       case 'added':
