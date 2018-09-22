@@ -41,24 +41,6 @@ const renderAstAsTree = (ast, depth = 1) => {
     };
 
     return typeRenderers[type]();
-
-    switch (type) {
-      case 'nested':
-        return `${indentForUnchanged}${name}: ${renderAstAsTree(children, depth + 1)}`;
-      case 'unchanged':
-        return `${indentForUnchanged}${keyValueToString(name, value1, depth)}`;
-      case 'added':
-        return `${indent}+ ${keyValueToString(name, value2, depth)}`;
-      case 'deleted':
-        return `${indent}- ${keyValueToString(name, value1, depth)}`;
-      case 'changed':
-        return [
-          `${indent}+ ${keyValueToString(name, value2, depth)}`,
-          `${indent}- ${keyValueToString(name, value1, depth)}`,
-        ];
-      default:
-        throw new Error();
-    }
   });
 
   return `{\n${_.flatten(arr).join('\n')}\n${getIndentForCloseBrace(depth)}}`;
